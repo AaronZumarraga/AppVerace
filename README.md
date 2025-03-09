@@ -55,14 +55,6 @@ En la salida de la consola, tendrás opciones para abrir la app en:
 ├── tsconfig.json      # Configuración de TypeScript
 ```
 
-## ✨ Restablecer el proyecto
-
-Si deseas iniciar con un proyecto limpio, ejecuta:
-```bash
-npm run reset-project
-```
-Este comando moverá el código inicial a **app-example** y creará un directorio **app/** nuevo para empezar desde cero.
-
 ## ✨ Recursos
 
 Para aprender más sobre el desarrollo con Expo y React Native, consulta:
@@ -79,5 +71,5 @@ Para aprender más sobre el desarrollo con Expo y React Native, consulta:
 
 ---
 
-Con esta guía, estarás listo para desarrollar tu app con React Native y Expo. ¡Feliz codificación! 🚀
+Con esta guía, estarás listo.
 
