@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+# Bienvenido a tu app Expo ✨
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este es un proyecto creado con [Expo](https://expo.dev) utilizando [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## ✨ Tecnologías utilizadas
 
-1. Install dependencies
+- **Framework:** React Native con Expo
+- **Node.js:** Versión 22.14.0
+- **Java:** Versión 17.0.12
+- **IDE:** Visual Studio Code
+- **Emulador:** Android Studio
 
+## ✨ Instalación y configuración
+
+1. **Crear el proyecto**
+   ```bash
+   npx create-expo-app@latest nombre-del-proyecto
+   ```
+2. **Ir al directorio del proyecto**
+   ```bash
+   cd nombre-del-proyecto
+   ```
+3. **Instalar dependencias**
    ```bash
    npm install
    ```
-
-2. Start the app
-
+4. **Iniciar el servidor**
    ```bash
-    npx expo start
+   npm start  # O bien
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+En la salida de la consola, tendrás opciones para abrir la app en:
+- Un [build de desarrollo](https://docs.expo.dev/develop/development-builds/introduction/)
+- Un [emulador de Android](https://docs.expo.dev/workflow/android-studio-emulator/)
+- Un [simulador de iOS](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), un entorno limitado para pruebas
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## ✨ Estructura del proyecto
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```
+/
+├── app/               # Contiene la navegación basada en archivos
+│   ├── (tabs)/
+│   │   ├── index.tsx      # Pantalla principal
+│   │   ├── explore.tsx    # Pantalla de exploración
+│   │   ├── _layout.tsx    # Configuración del navegador de pestañas
+├── assets/            # Iconos, splash screen, favicon
+├── components/        # Componentes reutilizables
+├── constants/         # Variables globales como colores
+├── hooks/             # Hooks personalizados para React Native
+├── scripts/           # Scripts auxiliares como `reset-project.js`
+├── app.json           # Configuración del proyecto Expo
+├── package.json       # Dependencias, scripts y metadatos del proyecto
+├── tsconfig.json      # Configuración de TypeScript
+```
 
-## Get a fresh project
+## ✨ Restablecer el proyecto
 
-When you're ready, run:
-
+Si deseas iniciar con un proyecto limpio, ejecuta:
 ```bash
 npm run reset-project
 ```
+Este comando moverá el código inicial a **app-example** y creará un directorio **app/** nuevo para empezar desde cero.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## ✨ Recursos
 
-## Learn more
+Para aprender más sobre el desarrollo con Expo y React Native, consulta:
+- [Configuración del entorno](https://reactnative.dev/docs/environment-setup)
+- [Guía de desarrollo en Expo](https://docs.expo.dev/get-started/start-developing/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Android Studio](https://developer.android.com/studio?hl=es-419)
+- [Lista de iconos para Expo](https://icons.expo.fyi/Index)
 
-To learn more about developing your project with Expo, look at the following resources:
+## ✨ Únete a la comunidad
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- [Expo en GitHub](https://github.com/expo/expo) - Plataforma de código abierto.
+- [Comunidad en Discord](https://chat.expo.dev) - Pregunta y comparte conocimientos sobre Expo.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+Con esta guía, estarás listo para desarrollar tu app con React Native y Expo. ¡Feliz codificación! 🚀
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
