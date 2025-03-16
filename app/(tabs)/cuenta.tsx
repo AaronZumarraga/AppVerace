@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Button from '@/components/Button'; // Importación del botón
+import CustomTextInput from '@/components/CustomTextInput'; // Importamos el nuevo componente
 
 export default function Tab() {
   const [message, setMessage] = useState(''); // Estado para manejar el mensaje
@@ -16,17 +17,14 @@ export default function Tab() {
     <View style={styles.container}>
       <Text>Tab [Cuenta]</Text>
       
-      {/* Primer campo de entrada de texto */}
-      <TextInput
-        style={styles.input}
+      {/* Usamos el componente CustomTextInput */}
+      <CustomTextInput
         placeholder="Ingrese algo en el primer campo"
         value={input1}
         onChangeText={setInput1} // Actualiza el estado del primer input
       />
 
-      {/* Segundo campo de entrada de texto */}
-      <TextInput
-        style={styles.input}
+      <CustomTextInput
         placeholder="Ingrese algo en el segundo campo"
         value={input2}
         onChangeText={setInput2} // Actualiza el estado del segundo input
@@ -45,14 +43,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-    borderRadius: 5,
   },
 });
