@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from '@/components/Button'; // Importación del botón
 import CustomTextInput from '@/components/CustomTextInput'; // Importamos el nuevo componente
+import { Stack } from 'expo-router';
 
 export default function Tab() {
   const [message, setMessage] = useState(''); // Estado para manejar el mensaje
@@ -15,7 +16,7 @@ export default function Tab() {
 
   return (
     <View style={styles.container}>
-      <Text>Tab [Cuenta]</Text>
+      <Text>Inicio de sesion</Text>
       
       {/* Usamos el componente CustomTextInput */}
       <CustomTextInput
@@ -30,9 +31,11 @@ export default function Tab() {
         onChangeText={setInput2} // Actualiza el estado del segundo input
       />
 
-      <Button label="Aplástame" onPress={handleButtonPress} /> {/* Botón para mostrar el mensaje */}
+      <Button label="Iniciar sesion" onPress={handleButtonPress} /> {/* Botón para mostrar el mensaje */}
       
       {message && <Text>{message}</Text>} {/* Mostrar el mensaje si existe */}
+
+      <Button label="Registrarse" onPress={handleButtonPress} /> {/* Botón para ir a la pantalla de registro */}      
     </View>
   );
 }
