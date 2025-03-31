@@ -1,41 +1,42 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '@/components/Button'; // Importación del botón
-import CustomTextInput from '@/components/CustomTextInput'; // Importamos el nuevo componente
-import { Stack } from 'expo-router';
+import { useRouter } from 'expo-router'; // Importar el hook para la navegación
+import Button from '@/components/Button';
+import CustomTextInput from '@/components/CustomTextInput';
 
 export default function Tab() {
-  const [message, setMessage] = useState(''); // Estado para manejar el mensaje
-  const [input1, setInput1] = useState(''); // Estado para el primer input
-  const [input2, setInput2] = useState(''); // Estado para el segundo input
+  const [message, setMessage] = useState('');
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
 
-  // Función para manejar la acción del botón
-  const handleButtonPress = () => {
-    setMessage(`Aplastaste el botón, Input 1: ${input1}, Input 2: ${input2}`);
+  const router = useRouter(); // Hook para la navegación
+
+  // Función para manejar el botón de registro
+  const handleRegisterPress = () => {
+    router.push('/registro'); // Navega a la pantalla de registro
   };
 
   return (
     <View style={styles.container}>
-      <Text>Inicio de sesion</Text>
-      
-      {/* Usamos el componente CustomTextInput */}
+      <Text>Inicio de sesión</Text>
+
       <CustomTextInput
         placeholder="Ingrese algo en el primer campo"
         value={input1}
-        onChangeText={setInput1} // Actualiza el estado del primer input
+        onChangeText={setInput1}
       />
 
       <CustomTextInput
         placeholder="Ingrese algo en el segundo campo"
         value={input2}
-        onChangeText={setInput2} // Actualiza el estado del segundo input
+        onChangeText={setInput2}
       />
 
-      <Button label="Iniciar sesion" onPress={handleButtonPress} /> {/* Botón para mostrar el mensaje */}
-      
-      {message && <Text>{message}</Text>} {/* Mostrar el mensaje si existe */}
+      <Button label="Iniciar sesión" onPress={() => setMessage(`Aplastaste el botón, Input 1: ${input1}, Input 2: ${input2}`)} />
 
-      <Button label="Registrarse" onPress={handleButtonPress} /> {/* Botón para ir a la pantalla de registro */}      
+      {message && <Text>{message}</Text>}
+
+      <Button label="Registrarse" onPress={handleRegisterPress} /> {/* Ahora redirige a registro.tsx */}
     </View>
   );
 }
