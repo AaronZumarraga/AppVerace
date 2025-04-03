@@ -1,0 +1,10 @@
+@import "./button.css";
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+}
+

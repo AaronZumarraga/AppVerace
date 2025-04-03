@@ -1,0 +1,5 @@
+@import "./slider.css";
+
+input[type="range"] {
+    accent-color: #FFC300;
+}
