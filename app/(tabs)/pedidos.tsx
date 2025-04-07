@@ -6,6 +6,7 @@ export default function Tab() {
       <Text>Tab [Pedidos]</Text>
     </View>
   );
+  
 }
 
 const styles = StyleSheet.create({

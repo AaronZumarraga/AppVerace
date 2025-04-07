@@ -1,0 +1,13 @@
+@import "./radio-group.css";
+.radio-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Espaciado entre botones */
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaciado entre input y texto */
+}

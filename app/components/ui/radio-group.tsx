@@ -1,4 +1,5 @@
 import React from "react";
+import "./radio-group.css"; // Importa los estilos
 
 export const RadioGroup = ({
   options,
@@ -10,9 +11,9 @@ export const RadioGroup = ({
   onChange: (val: string) => void;
 }) => {
   return (
-    <div className="flex space-x-4">
+    <div className="radio-group">
       {options.map((option) => (
-        <label key={option} className="flex items-center space-x-2">
+        <label key={option}>
           <input
             type="radio"
             value={option}

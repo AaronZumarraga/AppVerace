@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { NavigationProp } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 type Props = {
   navigation: NavigationProp<any>;
@@ -18,12 +19,20 @@ export default function Tab({ navigation }: Props) {
       <View style={styles.contentWrapper}>
         {/* Opciones de navegación */}
         <View style={styles.navOptions}>
-          <TouchableOpacity onPress={() => navigation.navigate('Menu')} style={styles.option}>
+
+
+          <TouchableOpacity
+            onPress={() => router.push('/pages/recomendacion/menu')}
+            style={styles.option}
+          >
             <Image source={require('../../assets/images/menú.png')} style={styles.icon} />
             <Text style={styles.label}>Menú</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Promociones')} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => router.push('/pages/recomendacion/promociones')}
+            style={styles.option}
+          >
             <Image source={require('../../assets/images/promociones.png')} style={styles.icon} />
             <Text style={styles.label}>Promociones</Text>
           </TouchableOpacity>
@@ -33,7 +42,10 @@ export default function Tab({ navigation }: Props) {
             <Text style={styles.label}>Combos</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Recomendacion')} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => router.push('/pages/recomendacion/recomendacion')}
+            style={styles.option}
+          >
             <Image source={require('../../assets/images/recomendacion.png')} style={styles.icon} />
             <Text style={styles.label}>Recomendación</Text>
           </TouchableOpacity>

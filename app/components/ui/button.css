@@ -1,10 +1,53 @@
 @import "./button.css";
 
 button {
-    display: flex;
+    display: inline-flex;
+    width: 33.33%;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem; /* Bordes redondeados */
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none; /* Elimina el borde */
 }
 
+button + button {
+    margin-left: 1rem; /* Separación entre botones */
+}
+
+.bg-yellow-400 {
+    background-color: #E5A000; /* Color de fondo */
+    color: black !important; /* Asegura que el texto sea negro */
+}
+
+.bg-gray-200 {
+    background-color: #e5e7eb;
+    color: black !important; /* Asegura que el texto sea negro */
+}
+
+.text-black {
+    color: black !important;
+}
+
+.rounded-md {
+    border-radius: 0.375rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.w-24 {
+    width: 6rem;
+}
+
+.w-28 {
+    width: 7rem;
+}
+
+button:hover {
+    opacity: 0.8;
+}
