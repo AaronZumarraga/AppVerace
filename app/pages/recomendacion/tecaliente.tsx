@@ -23,7 +23,7 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-          <Text style={styles.headerTitle}>Agua sin gas</Text>
+          <Text style={styles.headerTitle}>   Té caliente</Text>
           <View style={styles.realidadContainer}>
             <Image source={require('../../../assets/images/ra.png')} style={styles.arIcon} />
             <View>
@@ -35,16 +35,16 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
         {/* Imagen del producto */}
         <Image
-          source={require('../../../assets/images/aguasingas.jpg')}
+          source={require('../../../assets/images/tecaliente.jpg')}
           style={styles.productImage}
           resizeMode="cover"
         />
 
         {/* Información del producto */}
         <View style={styles.productInfo}>
-          <Text style={styles.productTitle}>Agua sin gas</Text>
+          <Text style={styles.productTitle}>Té caliente</Text>
           <Text style={styles.productDescription}>
-            Agua.
+            Té.
           </Text>
         </View>
 
@@ -65,25 +65,27 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
           {showNutrition && (
             <View style={styles.infoSection}>
               <View style={styles.nutritionGrid}>
-                <Text style={styles.gridItem}>0 Kcal</Text>
+                <Text style={styles.gridItem}>2 Kcal</Text>
                 <Text style={styles.gridItem}>0g Grasas</Text>
-                <Text style={styles.gridItem}>0g Carbohidratos</Text>
+                <Text style={styles.gridItem}>0.4g Carbohidratos</Text>
                 <Text style={styles.gridItem}>0g Proteínas</Text>
-                <Text style={styles.gridItem}>0mg Sodio</Text>
+                <Text style={styles.gridItem}>5mg Sodio</Text>
               </View>
 
               <View style={styles.nutritionTable}>
                 {[
-                  ['Peso', '500g'],
-                  ['Calorías (Kcal)', '0Kcal - 0%'],
-                  ['Grasas', '0g - 0%'],
-                  ['Carbohidratos Totales', '0g - 0%'],
-                  ['Proteínas', '0g - 0%'],
-                  ['Sodio', '0mg - 0%'],
-                  ['Grasas trans', '0g - 0%'],
-                  ['Grasas Saturadas', '0g - 0%'],
-                  ['Fibra', '0g - 0%'],                  
-                ].map(([key, value], idx) => (
+                    ['Peso', '500ml'],
+                    ['Calorías (Kcal)', '2Kcal - 0%'],
+                    ['Grasas', '0g - 0%'],
+                    ['Carbohidratos Totales', '0.4g - 0%'],
+                    ['Azúcares', '0g - *'],
+                    ['Proteínas', '0g - 0%'],
+                    ['Sodio', '5mg - 0%'],
+                    ['Grasas trans', '0g - 0%'],
+                    ['Grasas Saturadas', '0g - 0%'],
+                    ['Fibra', '0g - 0%'],
+                ]
+                .map(([key, value], idx) => (
                   <View key={idx} style={styles.nutritionRow}>
                     <Text style={styles.nutritionLabel}>{key}</Text>
                     <Text style={styles.nutritionValue}>{value}</Text>

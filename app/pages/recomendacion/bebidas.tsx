@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-
-type BebidasScreenProps = {
-  navigation: NavigationProp<any>;
-};
+import { useRouter } from 'expo-router';
 
 const bebidas = [
   { id: 1, nombre: 'Agua sin gas', precio: '$1', imagen: require('../../../assets/images/aguasingas.jpg') },
@@ -13,18 +9,62 @@ const bebidas = [
   { id: 3, nombre: 'Limonada', precio: '$3', imagen: require('../../../assets/images/imperial.jpg') },
   { id: 4, nombre: 'Limonada Rosa', precio: '$3.5', imagen: require('../../../assets/images/rosa.jpg') },
   { id: 5, nombre: 'Té caliente', precio: '$1.5', imagen: require('../../../assets/images/tecaliente.jpg') },
-  { id: 6, nombre: 'Gaseosa personal poner mas si es el caso ', precio: '$1.5', imagen: require('../../../assets/images/coca.jpg') },
-  { id: 7, nombre: 'Gaseosa 1.35L', precio: '$4.5', imagen: require('../../../assets/images/grande.webp') },
-  { id: 8, nombre: 'Café americano', precio: '$1.5', imagen: require('../../../assets/images/americano.jpg') },
-  { id: 9, nombre: 'Capuccino', precio: '$2.5', imagen: require('../../../assets/images/capuccino.jpg') },
-  { id: 10, nombre: 'Iced Coffee', precio: '$3.5', imagen: require('../../../assets/images/cafefrio.jpg') },
+  { id: 6, nombre: 'Coca-Cola', precio: '$1.5', imagen: require('../../../assets/images/coca.jpg') },
+  { id: 7, nombre: 'Fanta', precio: '$1.5', imagen: require('../../../assets/images/fanta.jpg') },
+  { id: 8, nombre: 'Fioravanti', precio: '$1.5', imagen: require('../../../assets/images/fiora.jpg') },
+  { id: 9, nombre: 'Sprite', precio: '$1.5', imagen: require('../../../assets/images/sprite.jpg') },
+ // { id: 10, nombre: 'Gaseosa 1.35L', precio: '$4.5', imagen: require('../../../assets/images/grande.webp') },
+  { id: 10, nombre: 'Café americano', precio: '$1.5', imagen: require('../../../assets/images/americano.jpg') },
+  { id: 11, nombre: 'Capuccino', precio: '$2.5', imagen: require('../../../assets/images/capuccino.jpg') },
+  { id: 12, nombre: 'Iced Coffee', precio: '$3.5', imagen: require('../../../assets/images/cafefrio.jpg') },
 ];
 
-export default function BebidasScreen({ navigation }: BebidasScreenProps) {
+export default function BebidasScreen() {
+  const router = useRouter();
+
+  const handlePress = (nombre: string) => {
+    if (nombre === 'Agua sin gas') {
+      router.push('/pages/recomendacion/aguasingas'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Agua mineral') {
+      router.push('/pages/recomendacion/aguamineral'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Limonada') {
+      router.push('/pages/recomendacion/limonada'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Limonada Rosa') {
+      router.push('/pages/recomendacion/limonadarosa'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Té caliente') {
+      router.push('/pages/recomendacion/tecaliente'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Coca-Cola') {
+      router.push('/pages/recomendacion/cocacola'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Fanta') {
+      router.push('/pages/recomendacion/fanta'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Fioravanti') {
+      router.push('/pages/recomendacion/fioravanti'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Sprite') {
+      router.push('/pages/recomendacion/sprite'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Café americano') {
+      router.push('/pages/recomendacion/cafeamericano'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Capuccino') {
+      router.push('/pages/recomendacion/capuccino'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+    if (nombre === 'Iced Coffee') {
+      router.push('/pages/recomendacion/icedcoffe'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.title}>Bebidas</Text>
@@ -33,7 +73,7 @@ export default function BebidasScreen({ navigation }: BebidasScreenProps) {
       <ScrollView>
         <View style={styles.list}>
           {bebidas.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.item}>
+            <TouchableOpacity key={item.id} style={styles.item} onPress={() => handlePress(item.nombre)}>
               <Image source={item.imagen} style={styles.image} />
               <View style={styles.textContainer}>
                 <Text style={styles.text}>{item.nombre}</Text>

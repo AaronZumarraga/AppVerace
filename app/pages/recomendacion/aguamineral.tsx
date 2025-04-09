@@ -35,7 +35,7 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
         {/* Imagen del producto */}
         <Image
-          source={require('../../../assets/images/aguasingas.jpg')}
+          source={require('../../../assets/images/download (8).jpeg')}
           style={styles.productImage}
           resizeMode="cover"
         />
@@ -74,16 +74,17 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
               <View style={styles.nutritionTable}>
                 {[
-                  ['Peso', '500g'],
-                  ['Calorías (Kcal)', '0Kcal - 0%'],
-                  ['Grasas', '0g - 0%'],
-                  ['Carbohidratos Totales', '0g - 0%'],
-                  ['Proteínas', '0g - 0%'],
-                  ['Sodio', '0mg - 0%'],
-                  ['Grasas trans', '0g - 0%'],
-                  ['Grasas Saturadas', '0g - 0%'],
-                  ['Fibra', '0g - 0%'],                  
-                ].map(([key, value], idx) => (
+                    ['Peso', '1000ml'],
+                    ['Calorías (Kcal)', '0Kcal - 0%'],
+                    ['Grasas', '0g - 0%'],
+                    ['Carbohidratos Totales', '0g - 0%'],
+                    ['Proteínas', '0g - 0%'],
+                    ['Sodio', '2mg - 0%'],
+                    ['Grasas trans', '0g - 0%'],
+                    ['Grasas Saturadas', '0g - 0%'],
+                    ['Fibra', '0g - 0%'],
+                ]
+                .map(([key, value], idx) => (
                   <View key={idx} style={styles.nutritionRow}>
                     <Text style={styles.nutritionLabel}>{key}</Text>
                     <Text style={styles.nutritionValue}>{value}</Text>

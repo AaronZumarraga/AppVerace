@@ -23,7 +23,7 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-          <Text style={styles.headerTitle}>Agua sin gas</Text>
+          <Text style={styles.headerTitle}>Fanta</Text>
           <View style={styles.realidadContainer}>
             <Image source={require('../../../assets/images/ra.png')} style={styles.arIcon} />
             <View>
@@ -35,16 +35,16 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
         {/* Imagen del producto */}
         <Image
-          source={require('../../../assets/images/aguasingas.jpg')}
+          source={require('../../../assets/images/fanta.jpg')}
           style={styles.productImage}
           resizeMode="cover"
         />
 
         {/* Información del producto */}
         <View style={styles.productInfo}>
-          <Text style={styles.productTitle}>Agua sin gas</Text>
+          <Text style={styles.productTitle}>Fanta</Text>
           <Text style={styles.productDescription}>
-            Agua.
+          Refresca tu diversión. Preparate y enfrenta la sed con una bebida helada y disfruta al máximo.
           </Text>
         </View>
 
@@ -65,25 +65,27 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
           {showNutrition && (
             <View style={styles.infoSection}>
               <View style={styles.nutritionGrid}>
-                <Text style={styles.gridItem}>0 Kcal</Text>
+                <Text style={styles.gridItem}>98 Kcal</Text>
                 <Text style={styles.gridItem}>0g Grasas</Text>
-                <Text style={styles.gridItem}>0g Carbohidratos</Text>
+                <Text style={styles.gridItem}>25g Carbohidratos</Text>
                 <Text style={styles.gridItem}>0g Proteínas</Text>
-                <Text style={styles.gridItem}>0mg Sodio</Text>
+                <Text style={styles.gridItem}>15mg Sodio</Text>
               </View>
 
               <View style={styles.nutritionTable}>
                 {[
-                  ['Peso', '500g'],
-                  ['Calorías (Kcal)', '0Kcal - 0%'],
-                  ['Grasas', '0g - 0%'],
-                  ['Carbohidratos Totales', '0g - 0%'],
-                  ['Proteínas', '0g - 0%'],
-                  ['Sodio', '0mg - 0%'],
-                  ['Grasas trans', '0g - 0%'],
-                  ['Grasas Saturadas', '0g - 0%'],
-                  ['Fibra', '0g - 0%'],                  
-                ].map(([key, value], idx) => (
+                    ['Peso', '235ml'],
+                    ['Calorías (Kcal)', '98Kcal - 5%'],
+                    ['Grasas Totales', '0g - 0%'],
+                    ['Carbohidratos Totales', '25g - 9%'],
+                    ['Azúcares', '25g'],
+                    ['Proteínas', '0g - 0%'],
+                    ['Sodio', '15mg - 1%'],
+                    ['Grasas trans', '0g - 0%'],
+                    ['Grasas Saturadas', '0g - 0%'],
+                    ['Fibra Dietética', '0g - 0%'],
+                ]
+                .map(([key, value], idx) => (
                   <View key={idx} style={styles.nutritionRow}>
                     <Text style={styles.nutritionLabel}>{key}</Text>
                     <Text style={styles.nutritionValue}>{value}</Text>

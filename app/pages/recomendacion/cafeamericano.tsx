@@ -23,7 +23,7 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="black" />
         </TouchableOpacity>
-          <Text style={styles.headerTitle}>Agua sin gas</Text>
+          <Text style={styles.headerTitle}>     Café americano</Text>
           <View style={styles.realidadContainer}>
             <Image source={require('../../../assets/images/ra.png')} style={styles.arIcon} />
             <View>
@@ -35,16 +35,16 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
         {/* Imagen del producto */}
         <Image
-          source={require('../../../assets/images/aguasingas.jpg')}
+          source={require('../../../assets/images/americano.jpg')}
           style={styles.productImage}
-          resizeMode="cover"
+          resizeMode="contain"
         />
 
         {/* Información del producto */}
         <View style={styles.productInfo}>
-          <Text style={styles.productTitle}>Agua sin gas</Text>
+          <Text style={styles.productTitle}>Café americano</Text>
           <Text style={styles.productDescription}>
-            Agua.
+            Sinceramente bueno, café americano y agua caliente.
           </Text>
         </View>
 
@@ -74,7 +74,7 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
 
               <View style={styles.nutritionTable}>
                 {[
-                  ['Peso', '500g'],
+                  ['Peso', '7g'],
                   ['Calorías (Kcal)', '0Kcal - 0%'],
                   ['Grasas', '0g - 0%'],
                   ['Carbohidratos Totales', '0g - 0%'],
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   realidadText: { fontSize: 12, fontWeight: '600', textAlign: 'center', marginLeft: -120 },
   aumentadaText: { fontSize: 10, textAlign: 'center', marginLeft: -120 },
   productImage: {
-    width: '30%',
+    width: '50%',
     height: 400,
     borderRadius: 12,
     alignSelf: 'center',
