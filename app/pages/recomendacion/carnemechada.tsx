@@ -1,25 +1,38 @@
-
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
-type SanducheDetailProps = {
-  navigation: any;
-};
-
-const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => {
+const SanducheDetailScreen: React.FC = () => {
   const [showNutrition, setShowNutrition] = useState(false);
   const [showAllergens, setShowAllergens] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const pricePerUnit = 5;
+
+  const handleAddToCart = () => {
+    setQuantity(1);
+  };
+
+  const handleIncrease = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    } else {
+      setQuantity(0); // Esto hará desaparecer el selector
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {/* Header con botón de regreso y título */}
         <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color="black" />
+          </TouchableOpacity>
           <Text style={styles.headerTitle}>Sanduches</Text>
           <View style={styles.realidadContainer}>
             <Image source={require('../../../assets/images/ra.png')} style={styles.arIcon} />
@@ -41,23 +54,24 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
         <View style={styles.productInfo}>
           <Text style={styles.productTitle}>Sanduche Carne Mechada</Text>
           <Text style={styles.productDescription}>
-          Queso mozzarella, carne mechada, aguacate y salsa de la casa          </Text>
+            Queso mozzarella, carne mechada, aguacate y salsa de la casa
+          </Text>
         </View>
 
         {/* Botones de info con toggle */}
         <View style={styles.infoContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.infoButton}
             onPress={() => setShowNutrition(!showNutrition)}
           >
             <Text style={styles.infoButtonText}>Información nutricional</Text>
-            <Ionicons 
-              name={showNutrition ? "chevron-down" : "chevron-forward"} 
-              size={20} 
-              color="black" 
+            <Ionicons
+              name={showNutrition ? "chevron-down" : "chevron-forward"}
+              size={20}
+              color="black"
             />
           </TouchableOpacity>
-          
+
           {showNutrition && (
             <View style={styles.infoSection}>
               <Text style={styles.sectionTitle}>Información nutricional</Text>
@@ -89,19 +103,19 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
               </View>
             </View>
           )}
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={styles.infoButton}
             onPress={() => setShowAllergens(!showAllergens)}
           >
             <Text style={styles.infoButtonText}>Información alérgenos</Text>
-            <Ionicons 
-              name={showAllergens ? "chevron-down" : "chevron-forward"} 
-              size={20} 
-              color="black" 
+            <Ionicons
+              name={showAllergens ? "chevron-down" : "chevron-forward"}
+              size={20}
+              color="black"
             />
           </TouchableOpacity>
-          
+
           {showAllergens && (
             <View style={styles.infoSection}>
               <Text style={styles.sectionTitle}>Información sobre alérgenos</Text>
@@ -118,12 +132,26 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
         </View>
       </ScrollView>
 
+      {/* Selector de cantidad y total */}
+      {quantity > 0 && (
+        <View style={styles.quantityContainer}>
+          <TouchableOpacity style={styles.quantityButton} onPress={handleDecrease}>
+            <Text style={styles.quantityText}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.quantityValue}>{quantity}</Text>
+          <TouchableOpacity style={styles.quantityButton} onPress={handleIncrease}>
+            <Text style={styles.quantityText}>+</Text>
+          </TouchableOpacity>
+          <Text style={styles.totalPrice}>${quantity * pricePerUnit}</Text>
+        </View>
+      )}
+
       {/* Botones de acción fijos */}
       <View style={styles.actionButtonsContainer}>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pagar ahora</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.cartButton}>
+        <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
           <Text style={styles.cartButtonText}>Añadir al carrito</Text>
         </TouchableOpacity>
       </View>
@@ -156,7 +184,6 @@ const styles = StyleSheet.create({
   productInfo: { paddingHorizontal: 16, paddingTop: 16 },
   productTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 4 },
   productDescription: { fontSize: 14, color: '#333', marginBottom: 8 },
-  moreInfoText: { fontSize: 16, fontWeight: '600', color: '#000', marginVertical: 8 },
   infoContainer: { marginTop: 16, paddingHorizontal: 16 },
   infoButton: {
     flexDirection: 'row',
@@ -210,6 +237,41 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   allergenText: { fontSize: 13, color: '#333' },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#f9f9f9',
+  },
+  quantityButton: {
+    borderWidth: 1,
+    borderColor: '#aaa',
+    borderRadius: 4,
+    padding: 6,
+    marginHorizontal: 10,
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quantityText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  quantityValue: {
+    fontSize: 16,
+    fontWeight: '600',
+    minWidth: 20,
+    textAlign: 'center',
+  },
+  totalPrice: {
+    marginLeft: 20,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   actionButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

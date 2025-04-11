@@ -1,9 +1,18 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { CartIcon } from '../components/ui/CartIcon';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs 
+      screenOptions={{
+        tabBarActiveTintColor: 'blue',
+        // Add the CartIcon to all tab screens
+        headerRight: () => <CartIcon />,
+        // Add some padding to ensure the cart icon has space
+        headerRightContainerStyle: { paddingRight: 16 }
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{

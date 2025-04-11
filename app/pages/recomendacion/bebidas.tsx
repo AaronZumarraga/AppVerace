@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 const bebidas = [
   { id: 1, nombre: 'Agua sin gas', precio: '$1', imagen: require('../../../assets/images/aguasingas.jpg') },
   { id: 2, nombre: 'Agua mineral', precio: '$1.5', imagen: require('../../../assets/images/download (8).jpeg') },
-  { id: 3, nombre: 'Limonada', precio: '$3', imagen: require('../../../assets/images/imperial.jpg') },
+  { id: 3, nombre: 'Limonada', precio: '$3.5', imagen: require('../../../assets/images/imperial.jpg') },
   { id: 4, nombre: 'Limonada Rosa', precio: '$3.5', imagen: require('../../../assets/images/rosa.jpg') },
   { id: 5, nombre: 'Té caliente', precio: '$1.5', imagen: require('../../../assets/images/tecaliente.jpg') },
   { id: 6, nombre: 'Coca-Cola', precio: '$1.5', imagen: require('../../../assets/images/coca.jpg') },
