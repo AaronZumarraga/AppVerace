@@ -1,91 +1,123 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react'; 
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { router, useRouter } from 'expo-router';
+import { router, Stack } from 'expo-router';
+import { useCart } from '../../context/CartContext';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import { CartIcon } from '../../components/ui/CartIcon';
 
-
-type SanducheDetailProps = {
-  navigation: any;
-};
-
-const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => {
+const SanducheDetailScreen = () => {
+  const [quantity, setQuantity] = useState(1);
   const [showNutrition, setShowNutrition] = useState(false);
   const [showAllergens, setShowAllergens] = useState(false);
+  const { addItem } = useCart();
+
+  const scale = useSharedValue(1);
+
+  const product = {
+    id: "pepperoni",
+    name: "Pepperoni",
+    price: 8,
+    image: require('../../../assets/images/pexels-muffin-1653877.jpg'),
+    description: "Mozzarella y pepperoni.."
+  };
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: quantity
+    });
+
+    // Trigger animation
+    scale.value = 1.5;
+    scale.value = withSpring(1, { damping: 4 });
+  };
+
+  const navigateToCart = () => {
+    router.push('/pages/recomendacion/carrito');
+  };
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      {/* Configure the Stack.Screen to hide the default header */}
+      <Stack.Screen 
+        options={{ 
+          headerShown: false
+        }} 
+      />
+
       <ScrollView>
-        {/* Header con botón de regreso y título */}
+        {/* Custom Header */}
         <View style={styles.header}>
-        {/*<TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>*/}
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
-          <Text style={styles.headerTitle}>   Limonada rosa</Text>
-          <View style={styles.realidadContainer}>
-            <Image source={require('../../../assets/images/ra.png')} style={styles.arIcon} />
-            <View>
-              <Text style={styles.realidadText}>Realidad</Text>
-              <Text style={styles.aumentadaText}>Aumentada</Text>
-            </View>
+          <View style={styles.leftHeader}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="chevron-back" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.title}>Pizzas</Text>
           </View>
+          
+        <TouchableOpacity style={styles.centerHeader} onPress={() => console.log("Realidad Aumentada tocado")}>
+          <Image source={require('../../../assets/images/ra.png')} style={styles.icon} />
+          <Text style={styles.raText}>Realidad{"\n"}Aumentada</Text>
+        </TouchableOpacity>
+
+          
+          <TouchableOpacity onPress={navigateToCart} style={styles.cartIconContainer}>
+            <Animated.View style={animatedStyle}>
+              <CartIcon />
+            </Animated.View>
+          </TouchableOpacity>
         </View>
 
-        {/* Imagen del producto */}
-        <Image
-          source={require('../../../assets/images/rosa.jpg')}
-          style={styles.productImage}
-          resizeMode="cover"
-        />
+        {/* Imagen */}
+        <Image source={product.image} style={styles.image} />
 
-        {/* Información del producto */}
-        <View style={styles.productInfo}>
-          <Text style={styles.productTitle}>Limonada rosa</Text>
-          <Text style={styles.productDescription}>
-            Agua.
-          </Text>
+        {/* Información */}
+        <View style={styles.details}>
+          <Text style={styles.name}>{product.name}</Text>
+          <Text>{product.description}</Text>
         </View>
 
-        {/* Botones de info con toggle */}
-        <View style={styles.infoContainer}>
-          <TouchableOpacity 
-            style={styles.infoButton}
+        {/* Más Información */}
+        <View style={styles.infoSection}>
+          <Text style={styles.moreInfoTitle}>Más información</Text>
+
+          <TouchableOpacity
+            style={styles.infoRow}
             onPress={() => setShowNutrition(!showNutrition)}
           >
-            <Text style={styles.infoButtonText}>Información nutricional</Text>
-            <Ionicons 
-              name={showNutrition ? "chevron-down" : "chevron-forward"} 
-              size={20} 
-              color="black" 
-            />
+            <Text style={styles.infoText}>Información nutricional</Text>
+            <Ionicons name={showNutrition ? "chevron-down" : "chevron-forward"} size={20} color="black" />
           </TouchableOpacity>
-          
+
           {showNutrition && (
-            <View style={styles.infoSection}>
+            <View style={styles.infoContent}>
               <View style={styles.nutritionGrid}>
-                <Text style={styles.gridItem}>90 Kcal</Text>
-                <Text style={styles.gridItem}>0g Grasas</Text>
-                <Text style={styles.gridItem}>23g Carbohidratos</Text>
-                <Text style={styles.gridItem}>0g Proteínas</Text>
-                <Text style={styles.gridItem}>2mg Sodio</Text>
+                <Text style={styles.gridItem}>517Kcal</Text>
+                <Text style={styles.gridItem}>26g Grasas</Text>
+                <Text style={styles.gridItem}>42g Carbohidratos</Text>
+                <Text style={styles.gridItem}>28g Proteínas</Text>
+                <Text style={styles.gridItem}>1020mg Sodio</Text>
               </View>
 
               <View style={styles.nutritionTable}>
                 {[
-                    ['Peso', '500ml'],
-                    ['Calorías (Kcal)', '90Kcal - 4.5%'],
-                    ['Grasas', '0g - 0%'],
-                    ['Carbohidratos Totales', '23g - 8%'],
-                    ['Azúcares', '23g - *'],
-                    ['Proteínas', '0g - 0%'],
-                    ['Sodio', '2mg - 0%'],
-                    ['Grasas trans', '0g - 0%'],
-                    ['Grasas Saturadas', '0g - 0%'],
-                    ['Fibra', '0g - 0%'],
-                ]
-                .map(([key, value], idx) => (
+                  ['Peso', '210g'],
+                  ['Calorías (Kcal)', '517Kcal - 26%'],
+                  ['Grasas', '26g - 33%'],
+                  ['Carbohidratos Totales', '42g - 14%'],
+                  ['Proteínas', '28g - 57%'],
+                  ['Sodio', '1020mg - 42%'],
+                  ['Grasas trans', '0.12g - 0%'],
+                  ['Grasas Saturadas', '8.8g - 44%'],
+                  ['Fibra', '0.8g - 0%'],
+                ].map(([key, value], idx) => (
                   <View key={idx} style={styles.nutritionRow}>
                     <Text style={styles.nutritionLabel}>{key}</Text>
                     <Text style={styles.nutritionValue}>{value}</Text>
@@ -94,86 +126,151 @@ const SanducheDetailScreen: React.FC<SanducheDetailProps> = ({ navigation }) => 
               </View>
             </View>
           )}
-          
-          <TouchableOpacity 
-            style={styles.infoButton}
+
+          <TouchableOpacity
+            style={styles.infoRow}
             onPress={() => setShowAllergens(!showAllergens)}
           >
-            <Text style={styles.infoButtonText}>Información alérgenos</Text>
-            <Ionicons 
-              name={showAllergens ? "chevron-down" : "chevron-forward"} 
-              size={20} 
-              color="black" 
-            />
+            <Text style={styles.infoText}>Información alérgenos</Text>
+            <Ionicons name={showAllergens ? "chevron-down" : "chevron-forward"} size={20} color="black" />
           </TouchableOpacity>
-          
+
           {showAllergens && (
             <View style={styles.infoSection}>
-              <Text style={styles.sectionTitle}>Este producto no contiene alérgenos</Text>
+              <Text style={styles.sectionTitle}>Información sobre alérgenos</Text>
               <View style={styles.allergensContainer}>
-             
+                {['Leche', 'Lactosa', 'Pimienta', 'Gluten', 'Sésamo'].map((item, idx) => (
+                  <View key={idx} style={styles.allergenItem}>
+                    <Ionicons name="alert-circle-outline" size={18} color="#333" style={{ marginRight: 6 }} />
+                    <Text style={styles.allergenText}>{item}</Text>
+                  </View>
+                ))}
               </View>
             </View>
           )}
         </View>
       </ScrollView>
 
-      {/* Botones de acción fijos */}
-      <View style={styles.actionButtonsContainer}>
-        <TouchableOpacity style={styles.payButton}>
-          <Text style={styles.payButtonText}>Pagar ahora</Text>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <View style={styles.quantityContainer}>
+          <TouchableOpacity onPress={() => setQuantity(Math.max(1, quantity - 1))}>
+            <Ionicons name="remove-circle-outline" size={28} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.quantityText}>{quantity}</Text>
+          <TouchableOpacity onPress={() => setQuantity(quantity + 1)}>
+            <Ionicons name="add-circle-outline" size={28} color="#000" />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.price}>${(product.price * quantity).toFixed(2)}</Text>
+
+        <TouchableOpacity style={styles.payNowButton}>
+          <Text style={styles.payNowText}>Pagar ahora</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.cartButton}>
-          <Text style={styles.cartButtonText}>Añadir al carrito</Text>
+
+        <TouchableOpacity 
+          style={styles.cartButton} 
+          onPress={handleAddToCart}
+        >
+          <Text style={styles.cartText}>Añadir al carrito</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'white' },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
-  backButton: { padding: 4 },
-  headerTitle: { fontSize: 18, fontWeight: '600', marginLeft: -320 },
-  realidadContainer: { flexDirection: 'row', alignItems: 'center' },
-  arIcon: { width: 24, height: 24, marginRight: 6, marginLeft: -50 },
-  realidadText: { fontSize: 12, fontWeight: '600', textAlign: 'center', marginLeft: -120 },
-  aumentadaText: { fontSize: 10, textAlign: 'center', marginLeft: -120 },
-  productImage: {
-    width: '30%',
-    height: 400,
-    borderRadius: 12,
-    alignSelf: 'center',
-    marginTop: 10,
-  },
-  productInfo: { paddingHorizontal: 16, paddingTop: 16 },
-  productTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 4 },
-  productDescription: { fontSize: 14, color: '#333', marginBottom: 8 },
-  moreInfoText: { fontSize: 16, fontWeight: '600', color: '#000', marginVertical: 8 },
-  infoContainer: { marginTop: 16, paddingHorizontal: 16 },
-  infoButton: {
+  leftHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    flex: 1,
   },
-  infoButtonText: { fontSize: 16, color: '#333' },
-  infoSection: { paddingVertical: 12 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 8 },
+  backButton: {
+    marginRight: 8,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  centerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  cartIconContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  rightHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 4,
+  },
+  raText: {
+    fontSize: 10,
+    textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'contain',
+  },
+  details: {
+    padding: 16,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  infoSection: {
+    padding: 16,
+  },
+  moreInfoTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  infoText: {
+    fontSize: 14,
+  },
+  infoContent: {
+    padding: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 10,
+  },
   nutritionGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginBottom: 12,
   },
   gridItem: {
     backgroundColor: '#f2f2f2',
@@ -199,48 +296,56 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginTop: 8,
   },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantityText: {
+    fontSize: 16,
+    marginHorizontal: 8,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  payNowButton: {
+    backgroundColor: '#000',
+    padding: 10,
+    borderRadius: 5,
+  },
+  payNowText: {
+    color: '#fff',
+    fontSize: 14,
+  },
+  cartButton: {
+    backgroundColor: '#f0c14b',
+    padding: 10,
+    borderRadius: 5,
+  },
+  cartText: {
+    fontSize: 14,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
   allergenItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fce4ec',
-    borderRadius: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    marginRight: 8,
-    marginBottom: 8,
+    marginBottom: 4,
   },
-  allergenText: { fontSize: 13, color: '#333' },
-  actionButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    backgroundColor: 'white',
+  allergenText: {
+    fontSize: 14,
   },
-  payButton: {
-    flex: 1,
-    backgroundColor: 'white',
-    paddingVertical: 12,
-    borderRadius: 6,
-    marginRight: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  payButtonText: { fontSize: 16, fontWeight: '600', color: '#000' },
-  cartButton: {
-    flex: 1,
-    backgroundColor: '#FFB800',
-    paddingVertical: 12,
-    borderRadius: 6,
-    marginLeft: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cartButtonText: { fontSize: 16, fontWeight: '600', color: '#000' },
 });
 
 export default SanducheDetailScreen;

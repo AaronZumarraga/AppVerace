@@ -2,6 +2,11 @@ import React from 'react';
 import { View, Image, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { NavigationProp } from '@react-navigation/native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 
 type Props = {
@@ -25,29 +30,29 @@ export default function Tab({ navigation }: Props) {
             onPress={() => router.push('/pages/recomendacion/menu')}
             style={styles.option}
           >
-            <Image source={require('../../assets/images/menú.png')} style={styles.icon} />
-            <Text style={styles.label}>Menú</Text>
+          <MaterialCommunityIcons name="food" size={24} color="black" />
+          <Text style={styles.label}>Menú</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => router.push('/pages/recomendacion/promociones')}
             style={styles.option}
           >
-            <Image source={require('../../assets/images/promociones.png')} style={styles.icon} />
-            <Text style={styles.label}>Promociones</Text>
+          <Entypo name="price-tag" size={24} color="black" />            
+          <Text style={styles.label}>Promociones</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Combos')} style={styles.option}>
-            <Image source={require('../../assets/images/combos.png')} style={styles.icon} />
-            <Text style={styles.label}>Combos</Text>
+          <Ionicons name="fast-food-sharp" size={24} color="black" />            
+          <Text style={styles.label}>Combos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => router.push('/pages/recomendacion/recomendacion')}
             style={styles.option}
           >
-            <Image source={require('../../assets/images/recomendacion.png')} style={styles.icon} />
-            <Text style={styles.label}>Recomendación</Text>
+          <FontAwesome6 name="clipboard-list" size={24} color="black" />           
+          <Text style={styles.label}>Recomendación</Text>
           </TouchableOpacity>
         </View>
 

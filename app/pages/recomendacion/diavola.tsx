@@ -15,11 +15,11 @@ const SanducheDetailScreen = () => {
   const scale = useSharedValue(1);
 
   const product = {
-    id: "veggie",
-    name: "Veggie",
-    price: 5,
-    image: require('../../../assets/images/veggie.webp'),
-    description: "Queso mozzarela aguacate, champiñones, tomate cherry, rúcula y salsa de la casa."
+    id: "diablo",
+    name: "Diablo",
+    price: 10,
+    image: require('../../../assets/images/diablo.jpg'),
+    description: "Mozzarella, pepperoni, cebolla, albahaca y aceite picante."
   };
 
   const handleAddToCart = () => {
@@ -59,13 +59,14 @@ const SanducheDetailScreen = () => {
             <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
               <Ionicons name="chevron-back" size={24} color="black" />
             </TouchableOpacity>
-            <Text style={styles.title}>Sanduches</Text>
+            <Text style={styles.title}>Pizzas</Text>
           </View>
           
         <TouchableOpacity style={styles.centerHeader} onPress={() => console.log("Realidad Aumentada tocado")}>
           <Image source={require('../../../assets/images/ra.png')} style={styles.icon} />
           <Text style={styles.raText}>Realidad{"\n"}Aumentada</Text>
         </TouchableOpacity>
+
           
           <TouchableOpacity onPress={navigateToCart} style={styles.cartIconContainer}>
             <Animated.View style={animatedStyle}>

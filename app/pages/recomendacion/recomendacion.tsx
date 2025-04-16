@@ -1,54 +1,191 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Image } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 import Slider from '@react-native-community/slider';
-
-type RecomendacionScreenProps = {
-  navigation: NavigationProp<any>;
-};
+import { Stack, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 type Plato = {
   Nombre: string;
   Precio: number;
   Calorias: number;
   Categoria: string;
+  Ingredientes: string;
+  Similitud?: number;
 };
 
+// Datos ampliados con ingredientes
 const data: Plato[] = [
-  { Nombre: "Margarita", Precio: 8, Calorias: 250, Categoria: "Pizza" },
-  { Nombre: "Napolitana", Precio: 10, Calorias: 280, Categoria: "Pizza" },
-  { Nombre: "Vegetariana", Precio: 12, Calorias: 240, Categoria: "Pizza" },
-  { Nombre: "Pepperoni", Precio: 9, Calorias: 300, Categoria: "Pizza" },
-  { Nombre: "Hawaiana", Precio: 11, Calorias: 320, Categoria: "Pizza" },
-  { Nombre: "Veggie Lovers", Precio: 12, Calorias: 260, Categoria: "Pizza" },
-  { Nombre: "Tradicional", Precio: 5, Calorias: 300, Categoria: "Sánduche" },
-  { Nombre: "Carne mechada", Precio: 5, Calorias: 350, Categoria: "Sánduche" },
-  { Nombre: "Veggie", Precio: 5, Calorias: 220, Categoria: "Sánduche" },
-  { Nombre: "Nachos cheddar", Precio: 5, Calorias: 400, Categoria: "Picada" },
-  { Nombre: "Limonada", Precio: 1.5, Calorias: 80, Categoria: "Bebida" },
-  { Nombre: "Cerveza artesanal", Precio: 3, Calorias: 150, Categoria: "Bebida" }
+  { Nombre: "Margarita", Precio: 8, Calorias: 250, Categoria: "Pizza", Ingredientes: "Queso mozzarella, tomate cherry, albahaca" },
+  { Nombre: "Napolitana", Precio: 10, Calorias: 280, Categoria: "Pizza", Ingredientes: "Queso mozzarella, tomate, anchoas" },
+  { Nombre: "Vegetariana", Precio: 12, Calorias: 240, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla, aceitunas" },
+  { Nombre: "Pepperoni", Precio: 9, Calorias: 300, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pepperoni" },
+  { Nombre: "Hawaiana", Precio: 11, Calorias: 320, Categoria: "Pizza", Ingredientes: "Queso mozzarella, jamón, piña" },
+  { Nombre: "Veggie Lovers", Precio: 12, Calorias: 260, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla" },
+  { Nombre: "Tradicional", Precio: 5, Calorias: 300, Categoria: "Sánduche", Ingredientes: "Jamón, queso, tomate, lechuga" },
+  { Nombre: "Carne mechada", Precio: 5, Calorias: 350, Categoria: "Sánduche", Ingredientes: "Carne desmenuzada, queso, cebolla caramelizada" },
+  { Nombre: "Veggie", Precio: 5, Calorias: 220, Categoria: "Sánduche", Ingredientes: "Queso, tomate, lechuga, pepino, palta" },
+  { Nombre: "Nachos cheddar", Precio: 5, Calorias: 400, Categoria: "Picada", Ingredientes: "Nachos, queso cheddar, jalapeños" },
+  { Nombre: "Limonada", Precio: 1.5, Calorias: 80, Categoria: "Bebida", Ingredientes: "Limón, agua, azúcar" },
+  { Nombre: "Cerveza artesanal", Precio: 3, Calorias: 150, Categoria: "Bebida", Ingredientes: "Cebada, lúpulo, levadura" }
 ];
 
-export default function RecomendacionScreen({ navigation }: RecomendacionScreenProps) {
+// Implementación simplificada de TF-IDF
+function crearVectoresTFIDF(datos: Plato[]) {
+  // Crear un conjunto de todos los términos
+  const todosTerminos = new Set<string>();
+  const documentosProcesados: string[][] = [];
+  
+  // Procesar ingredientes y recopilar términos únicos
+  datos.forEach(plato => {
+    const terminos = plato.Ingredientes.toLowerCase().split(/[\s,]+/).filter(Boolean);
+    documentosProcesados.push(terminos);
+    terminos.forEach(termino => todosTerminos.add(termino));
+  });
+  
+  const terminos = Array.from(todosTerminos);
+  const idf: {[key: string]: number} = {};
+  
+  // Calcular IDF (Inverse Document Frequency)
+  terminos.forEach(termino => {
+    const documentosConTermino = documentosProcesados.filter(doc => 
+      doc.includes(termino)
+    ).length;
+    idf[termino] = Math.log(datos.length / (1 + documentosConTermino));
+  });
+  
+  // Calcular vectores TF-IDF para cada plato
+  const vectoresTFIDF: number[][] = [];
+  
+  documentosProcesados.forEach(doc => {
+    const vector: number[] = [];
+    const frecuencias: {[key: string]: number} = {};
+    
+    // Calcular frecuencias de términos
+    doc.forEach(termino => {
+      frecuencias[termino] = (frecuencias[termino] || 0) + 1;
+    });
+    
+    // Calcular TF-IDF para cada término
+    terminos.forEach(termino => {
+      const tf = frecuencias[termino] || 0;
+      vector.push(tf * idf[termino]);
+    });
+    
+    vectoresTFIDF.push(vector);
+  });
+  
+  return { vectoresTFIDF, terminos };
+}
+
+// Calcular similitud de coseno entre dos vectores
+function similitudCoseno(vectorA: number[], vectorB: number[]): number {
+  if (vectorA.length !== vectorB.length) {
+    throw new Error("Los vectores deben tener la misma longitud");
+  }
+  
+  let producto = 0;
+  let normaA = 0;
+  let normaB = 0;
+  
+  for (let i = 0; i < vectorA.length; i++) {
+    producto += vectorA[i] * vectorB[i];
+    normaA += vectorA[i] * vectorA[i];
+    normaB += vectorB[i] * vectorB[i];
+  }
+  
+  normaA = Math.sqrt(normaA);
+  normaB = Math.sqrt(normaB);
+  
+  if (normaA === 0 || normaB === 0) {
+    return 0;
+  }
+  
+  return producto / (normaA * normaB);
+}
+
+export default function RecomendacionScreen() {
+  const router = useRouter();
+  
   const [categoria, setCategoria] = useState<string>("");
   const [presupuesto, setPresupuesto] = useState<number>(9);
   const [ingredientes, setIngredientes] = useState<string>("Sin Carne");
-  const [recomendaciones, setRecomendaciones] = useState<Plato[]>([
-    { Nombre: "Margarita", Precio: 8, Calorias: 250, Categoria: "Pizza" },
-    { Nombre: "Napolitana", Precio: 10, Calorias: 280, Categoria: "Pizza" },
-    { Nombre: "Vegetariana", Precio: 12, Calorias: 240, Categoria: "Pizza" }
-  ]);
+  const [recomendaciones, setRecomendaciones] = useState<Plato[]>([]);
+  const [vectoresTFIDF, setVectoresTFIDF] = useState<{vectoresTFIDF: number[][], terminos: string[]}>({ vectoresTFIDF: [], terminos: [] });
+  
+  useEffect(() => {
+    // Precalcular vectores TF-IDF al iniciar
+    const tfidf = crearVectoresTFIDF(data);
+    setVectoresTFIDF(tfidf);
+  }, []);
 
   const handleCategoriaChange = (cat: string) => {
     setCategoria(cat === categoria ? "" : cat);
   };
 
   const obtenerRecomendaciones = () => {
+    // Filtrado inicial por precio y categoría
     let filtrado = data.filter((item) => item.Precio <= presupuesto);
     if (categoria && categoria !== "Cualquiera") {
       filtrado = filtrado.filter((item) => item.Categoria === categoria);
     }
-    setRecomendaciones(filtrado);
+    
+    // Si no hay ingredientes para procesar o no hay términos TF-IDF, devolver resultados filtrados
+    if (!ingredientes || vectoresTFIDF.terminos.length === 0) {
+      setRecomendaciones(filtrado);
+      return;
+    }
+    
+    try {
+      // Filtrado por preferencia de carne
+      if (ingredientes.toLowerCase().includes("sin carne")) {
+        filtrado = filtrado.filter((item) => 
+          !item.Ingredientes.toLowerCase().includes("carne") && 
+          !item.Ingredientes.toLowerCase().includes("jamón") && 
+          !item.Ingredientes.toLowerCase().includes("pepperoni")
+        );
+      } else if (ingredientes.toLowerCase().includes("con carne")) {
+        filtrado = filtrado.filter((item) => 
+          item.Ingredientes.toLowerCase().includes("carne") || 
+          item.Ingredientes.toLowerCase().includes("jamón") || 
+          item.Ingredientes.toLowerCase().includes("pepperoni")
+        );
+      } else {
+        // Análisis de similitud basado en ingredientes
+        const terminosConsulta = ingredientes.toLowerCase().split(/[\s,]+/).filter(Boolean);
+        const vectorConsulta = new Array(vectoresTFIDF.terminos.length).fill(0);
+        
+        // Crear vector de consulta
+        terminosConsulta.forEach(termino => {
+          const indice = vectoresTFIDF.terminos.indexOf(termino);
+          if (indice !== -1) {
+            vectorConsulta[indice] = 1;
+          }
+        });
+        
+        // Calcular similitud para cada plato
+        filtrado = filtrado.map(plato => {
+          const indice = data.findIndex(item => item.Nombre === plato.Nombre);
+          if (indice !== -1) {
+            const similitud = similitudCoseno(vectorConsulta, vectoresTFIDF.vectoresTFIDF[indice]);
+            return { ...plato, Similitud: similitud };
+          }
+          return { ...plato, Similitud: 0 };
+        });
+        
+        // Ordenar por similitud
+        filtrado = filtrado.sort((a, b) => (b.Similitud || 0) - (a.Similitud || 0));
+      }
+      
+      if (filtrado.length === 0) {
+        Alert.alert("Sin resultados", "No se encontraron platos que coincidan con tus preferencias.");
+      }
+      
+      // Tomar los 5 mejores resultados
+      setRecomendaciones(filtrado.slice(0, 5));
+    } catch (error) {
+      console.error("Error al calcular similitudes:", error);
+      setRecomendaciones(filtrado);
+    }
   };
 
   const limpiarFiltros = () => {
@@ -60,10 +197,20 @@ export default function RecomendacionScreen({ navigation }: RecomendacionScreenP
 
   return (
     <View style={styles.container}>
+      {/* This will hide the header */}
+      <Stack.Screen options={{ headerShown: false }} />
+      
       <ScrollView>
-        <Text style={styles.title}>Recomendación de menu</Text>
+        {/* Header with back button */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="chevron-back" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Recomendación de menú con IA</Text>
+        </View>
+      
         <Text style={styles.subtitle}>
-          Selecciona categoría, presupuesto e ingredientes opcionales para recomendaciones.
+          Sistema inteligente que recomienda platos basados en tus preferencias.
         </Text>
 
         {/* Categoría */}
@@ -128,10 +275,13 @@ export default function RecomendacionScreen({ navigation }: RecomendacionScreenP
           <Text style={styles.sectionTitle}>Ingredientes preferidos</Text>
           <TextInput
             style={styles.input}
-            placeholder="Ej: Sin Carne"
+            placeholder="Ej: Sin Carne, Con Carne, o ingredientes específicos"
             value={ingredientes}
             onChangeText={setIngredientes}
           />
+          <Text style={styles.hint}>
+            Puedes escribir "Sin Carne", "Con Carne", o ingredientes específicos como "queso, tomate"
+          </Text>
         </View>
 
         {/* Botones */}
@@ -153,6 +303,7 @@ export default function RecomendacionScreen({ navigation }: RecomendacionScreenP
         {/* Resultados */}
         {recomendaciones.length > 0 && (
           <View style={styles.resultsContainer}>
+            <Text style={styles.resultsTitle}>Recomendaciones Personalizadas</Text>
             <View style={styles.tableHeader}>
               <Text style={[styles.tableHeaderCell, { flex: 2 }]}>Nombre</Text>
               <Text style={[styles.tableHeaderCell, { flex: 1 }]}>Precio</Text>
@@ -160,17 +311,21 @@ export default function RecomendacionScreen({ navigation }: RecomendacionScreenP
             </View>
             
             {recomendaciones.map((item, index) => (
-              <View 
+              <TouchableOpacity 
                 key={index} 
                 style={[
                   styles.tableRow,
                   index < recomendaciones.length - 1 && styles.tableBorder
                 ]}
+                onPress={() => Alert.alert(
+                  item.Nombre,
+                  `Ingredientes: ${item.Ingredientes}\nCategoría: ${item.Categoria}\nPrecio: $${item.Precio}\nCalorías: ${item.Calorias}`
+                )}
               >
                 <Text style={[styles.tableCell, { flex: 2 }]}>{item.Nombre}</Text>
-                <Text style={[styles.tableCell, { flex: 1 }]}>{item.Precio.toFixed(1)}</Text>
+                <Text style={[styles.tableCell, { flex: 1 }]}>${item.Precio.toFixed(1)}</Text>
                 <Text style={[styles.tableCell, { flex: 1 }]}>{item.Calorias}</Text>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         )}
@@ -184,11 +339,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 16,
+    paddingTop: 20, // Added extra padding at the top since we removed the header
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  backButton: {
+    padding: 4,
+    marginRight: 10,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 6,
   },
   subtitle: {
     fontSize: 14,
@@ -291,6 +455,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 14,
   },
+  hint: {
+    fontSize: 11,
+    color: '#888',
+    marginTop: 4,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -322,7 +491,16 @@ const styles = StyleSheet.create({
     borderColor: '#DDD',
     borderRadius: 8,
     marginTop: 8,
+    marginBottom: 24,
     backgroundColor: '#FFF',
+  },
+  resultsTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEE',
+    color: '#F2A900',
   },
   tableHeader: {
     flexDirection: 'row',

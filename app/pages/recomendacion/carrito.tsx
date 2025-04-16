@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react'; 
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { useCart } from 'app/context/CartContext';
 import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart } = useCart();
@@ -11,7 +14,16 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Stack.Screen options={{ title: 'Carrito' }} />
+        <Stack.Screen 
+          options={{ 
+            title: 'Carrito',
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <Ionicons name="chevron-back" size={24} color="#000" />
+              </TouchableOpacity>
+            ),
+          }} 
+        />
         <Text style={styles.emptyText}>Tu carrito está vacío</Text>
       </View>
     );
@@ -19,38 +31,51 @@ export default function CartPage() {
   
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: 'Carrito' }} />
-      
-      <FlatList
-        data={items}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.cartItem}>
-            <View style={styles.itemInfo}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
-            </View>
-            
-            <View style={styles.quantityContainer}>
-              <TouchableOpacity 
-                onPress={() => removeItem(item.id)}
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantityButtonText}>-</Text>
-              </TouchableOpacity>
-              
-              <Text style={styles.quantity}>{item.quantity}</Text>
-              
-              <TouchableOpacity
-                onPress={() => updateQuantity(item.id, item.quantity + 1)}
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantityButtonText}>+</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
+      <Stack.Screen 
+        options={{ 
+          title: 'Carrito',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="chevron-back" size={24} color="#000" />
+            </TouchableOpacity>
+          ),
+        }} 
       />
+      
+      <ScrollView style={styles.scrollView}>
+        <FlatList
+          data={items}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.cartItem}>
+              <View style={styles.itemInfo}>
+                <Text style={styles.itemName}>{item.name}</Text>
+                <Text style={styles.itemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
+              </View>
+              
+              <View style={styles.quantityContainer}>
+                <TouchableOpacity 
+                  onPress={() => removeItem(item.id)}
+                  style={styles.quantityButton}
+                >
+                  <Text style={styles.quantityButtonText}>-</Text>
+                </TouchableOpacity>
+                
+                <Text style={styles.quantity}>{item.quantity}</Text>
+                
+                <TouchableOpacity
+                  onPress={() => updateQuantity(item.id, item.quantity + 1)}
+                  style={styles.quantityButton}
+                >
+                  <Text style={styles.quantityButtonText}>+</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          scrollEnabled={false}
+          nestedScrollEnabled={true}
+        />
+      </ScrollView>
       
       <View style={styles.footer}>
         <View style={styles.totalContainer}>
@@ -78,6 +103,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f9f9f9',
   },
+  scrollView: {
+    flex: 1,
+  },
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -87,6 +115,9 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     color: '#666',
+  },
+  backButton: {
+    paddingHorizontal: 8,
   },
   cartItem: {
     flexDirection: 'row',

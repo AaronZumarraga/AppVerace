@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { useRouter, Stack } from 'expo-router';
 
 const bebidas = [
   { id: 1, nombre: 'Tradicional', precio: '$5', imagen: require('../../../assets/images/sanduchesp1.jpg') },
@@ -20,15 +20,17 @@ export default function SanduchesScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        {/*<TouchableOpacity onPress={() => router.push('/pages/recomendacion/menu')} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>*/}
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Sanduches</Text>
-      </View>
+      <Stack.Screen 
+        options={{ 
+          title: 'Sanduches',
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="chevron-back" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+        }} 
+      />
 
       <View style={styles.list}>
         {bebidas.map((item) => (
@@ -54,21 +56,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
+    paddingTop: 0, // Remove top padding to accommodate the Stack.Screen header
   },
   backButton: {
-    paddingRight: 8,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    padding: 4,
+    marginLeft: 8,
   },
   list: {
     flexDirection: 'column',
+    marginTop: 10,
   },
   item: {
     flexDirection: 'row',

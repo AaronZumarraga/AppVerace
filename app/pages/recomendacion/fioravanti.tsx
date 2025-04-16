@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'; 
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useCart } from '../../context/CartContext';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { CartIcon } from '../../components/ui/CartIcon';
@@ -45,7 +45,13 @@ const SanducheDetailScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+    <View style={styles.container}>
+      {/* Configure the Stack.Screen to hide the default header */}
+      <Stack.Screen 
+        options={{ 
+          headerShown: false
+        }} 
+      />   
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.leftHeader}>
@@ -55,10 +61,10 @@ const SanducheDetailScreen = () => {
             <Text style={styles.title}>Bebidas</Text>
           </View>
           
-          <View style={styles.centerHeader}>
-            <Image source={require('../../../assets/images/ra.png')} style={styles.icon} />
-            <Text style={styles.raText}>Realidad{"\n"}Aumentada</Text>
-          </View>
+        <TouchableOpacity style={styles.centerHeader} onPress={() => console.log("Realidad Aumentada tocado")}>
+          <Image source={require('../../../assets/images/ra.png')} style={styles.icon} />
+          <Text style={styles.raText}>Realidad{"\n"}Aumentada</Text>
+        </TouchableOpacity>
           
           <TouchableOpacity onPress={navigateToCart} style={styles.cartIconContainer}>
             <Animated.View style={animatedStyle}>
@@ -135,7 +141,7 @@ const SanducheDetailScreen = () => {
             </View>
           )}
         </View>
-      </ScrollView>
+      </View>
 
       {/* Footer */}
       <View style={styles.footer}>
