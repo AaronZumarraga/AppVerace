@@ -1,12 +1,13 @@
+import { Link } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Tab() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Tab [Pedidos]</Text>
+      <Text>Pagina de Cuenta</Text>
+      <Link href="/details">Enlace a siguiente pantalla de prueba que se llama detalles para ejemplo de navegacion dentro de Cuenta</Link>
     </View>
   );
-  
 }
 
 const styles = StyleSheet.create({

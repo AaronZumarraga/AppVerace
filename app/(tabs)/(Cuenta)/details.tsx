@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Tab() {
+export default function DetailsScreen() {
   return (
     <View style={styles.container}>
-      <Text>Tab [Cuenta]</Text>
+      <Text>Pantalla dentro de Cuenta, sirve de ejemplo para las paginas de navegacion dentro de cuenta</Text>
     </View>
   );
 }
