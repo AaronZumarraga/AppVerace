@@ -12,8 +12,8 @@ export default function HomeLayout() {
           fontWeight: 'bold',
         },
       }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="details" />
+      <Stack.Screen name="index" options={{ title: 'Menu' }}/>
+      <Stack.Screen name="menu/[id]" /> {/* Ruta dinámica para los menús */}
     </Stack>
   );
 }
