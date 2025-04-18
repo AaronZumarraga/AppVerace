@@ -42,7 +42,10 @@ export default function Tab({ navigation }: Props) {
           <Text style={styles.label}>Promociones</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Combos')} style={styles.option}>
+          <TouchableOpacity
+            onPress={() => router.push('/pages/recomendacion/combos')}
+            style={styles.option}
+          >
           <Ionicons name="fast-food-sharp" size={24} color="black" />            
           <Text style={styles.label}>Combos</Text>
           </TouchableOpacity>
