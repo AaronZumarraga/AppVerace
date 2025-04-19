@@ -92,21 +92,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
   backButton: {
     padding: 4,
-    marginRight: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    marginLeft: 8,
   },
   list: {
-    flexDirection: 'column',
+    paddingBottom: 20,
   },
   item: {
     flexDirection: 'row',
@@ -116,11 +107,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
+    width: 80, // Tamaño fijo
+    height: 80, // Tamaño fijo
+    borderRadius: 15, // Esquinas redondeadas
     marginRight: 15,
-    resizeMode: 'contain',
+    resizeMode: 'cover', // Para ajustar la imagen sin distorsionar
   },
   textContainer: {
     flex: 1,
@@ -135,3 +126,4 @@ const styles = StyleSheet.create({
     color: '#555',
   },
 });
+

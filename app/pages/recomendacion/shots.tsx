@@ -1,43 +1,30 @@
-import React from 'react';
+import React from 'react'; 
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter,Stack } from 'expo-router';
+import { useRouter, Stack } from 'expo-router';
 
 const bebidas = [
-    { id: 1, nombre: 'Promo Pilas', precio: '$16', imagen: require('../../../assets/images/470140898_18004212455697669_2952221237043222814_n.jpg') },
-    { id: 2, nombre: 'Promo Lovers', precio: '$20', imagen: require('../../../assets/images/promolovers.jpg') },
-    { id: 3, nombre: 'Promo King', precio: '$24', imagen: require('../../../assets/images/promoking1.jpg') },
-    { id: 4, nombre: 'Promo Sanduchera', precio: '$10', imagen: require('../../../assets/images/278953595_514677723447399_1453067101951070993_n.webp') },
-    { id: 5, nombre: 'Promo Piqueo', precio: '$18', imagen: require('../../../assets/images/promopiqueo.avif') },
-  ];
+  { id: 1, nombre: 'Shot de tequila', precio: '$3', imagen: require('../../../assets/images/shottequila.jpg') },
+  { id: 2, nombre: 'Shot de aguardiente', precio: '$3', imagen: require('../../../assets/images/shotardiente.jpg') },
+  { id: 3, nombre: 'Shot de Jager', precio: '$6', imagen: require('../../../assets/images/jaggershot.jpg') },
+  { id: 4, nombre: 'Jager Bomb', precio: '$10', imagen: require('../../../assets/images/jaggerbomb.jpg') },
+];
 
 export default function BebidasScreen() {
   const router = useRouter();
 
   const handleNavigation = (nombre: string) => {
-    if (nombre === 'Promo Pilas') {
-      router.push('/pages/recomendacion/promopilas'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
-    }
-    if (nombre === 'Promo Lovers') {
-      router.push('/pages/recomendacion/promolovers'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
-    }
-    if (nombre === 'Promo King') {
-      router.push('/pages/recomendacion/promoking'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
-    }
-    if (nombre === 'Promo Sanduchera') {
-      router.push('/pages/recomendacion/promosanduchera'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
-    }
-    if (nombre === 'Promo Piqueo') {
-      router.push('/pages/recomendacion/promopiqueo'); // Asegúrate que este archivo esté en /app/aguasingas.tsx
-    }
-
+    if (nombre === 'Shot de tequila') router.push('/pages/recomendacion/shot-de-tequila');
+    else if (nombre === 'Shot de aguardiente') router.push('/pages/recomendacion/shot-de-aguardiente');
+    else if (nombre === 'Shot de Jager') router.push('/pages/recomendacion/shot-de-jager');
+    else if (nombre === 'Jager Bomb') router.push('/pages/recomendacion/jager-bomb');
   };
 
   return (
     <View style={styles.container}>
       <Stack.Screen 
         options={{ 
-          title: 'Promos',
+          title: 'Shots',
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>

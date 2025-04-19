@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     padding: 20,
-    paddingTop: 0,
   },
   backButton: {
     padding: 4,
@@ -91,11 +90,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
+    width: 80, // Tamaño fijo
+    height: 80, // Tamaño fijo
+    borderRadius: 15, // Esquinas redondeadas
     marginRight: 15,
-    resizeMode: 'contain',
+    resizeMode: 'cover', // Para ajustar la imagen sin distorsionar
   },
   textContainer: {
     flex: 1,

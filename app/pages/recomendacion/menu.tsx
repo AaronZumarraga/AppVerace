@@ -50,10 +50,28 @@ export default function MenuScreen({ navigation }: MenuScreenProps) {
           <Image source={require('../../../assets/images/promos.png')} style={styles.image} />
           <Text style={styles.text}>Promos</Text>
         </TouchableOpacity>
+      
+        <TouchableOpacity style={styles.item} onPress={() => router.push('/pages/recomendacion/cervesa')}>
+          <Image source={require('../../../assets/images/cervesa.webp')} style={styles.image} />
+          <Text style={styles.text}>Cerveza</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.item} onPress={() => router.push('/pages/recomendacion/cocteles')}>
+          <Image source={require('../../../assets/images/cocteles.webp')} style={styles.image} />
+          <Text style={styles.text}>Cocteles</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.item} onPress={() => router.push('/pages/recomendacion/shots')}>
+          <Image source={require('../../../assets/images/shots.jpg')} style={styles.image} />
+          <Text style={styles.text}>Shots</Text>
+        </TouchableOpacity>
+      
       </View>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
