@@ -77,18 +77,18 @@ export default function Tab({ navigation }: Props) {
         {/* Lista de promociones */}
         <Text style={styles.sectionTitle}>Promociones</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity onPress={() => alert('Pizza seleccionada')}>
-            <Image source={require('../../assets/images/promos.png')} style={styles.promoItem} />
-            <Text style={styles.price}>$10</Text>
-          </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/pages/recomendacion/promociones')}>
+          <Image source={require('../../assets/images/promos.png')} style={styles.promoItem} />
+          <Text style={styles.price}>$10</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert('Hamburguesa seleccionada')}>
+        <TouchableOpacity onPress={() => router.push('/pages/recomendacion/promociones')}>
             <Image source={require('../../assets/images/sanduchesp1.jpg')} style={styles.promoItem} />
             <Text style={styles.price}>$9</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert('Bebida seleccionada')}>
-            <Image source={require('../../assets/images/bebidasp.jpg')} style={styles.promoItem} />
+          <TouchableOpacity onPress={() => router.push('/pages/recomendacion/promociones')}>
+          <Image source={require('../../assets/images/bebidasp.jpg')} style={styles.promoItem} />
             <Text style={styles.price}>$9</Text>
           </TouchableOpacity>
         </ScrollView>

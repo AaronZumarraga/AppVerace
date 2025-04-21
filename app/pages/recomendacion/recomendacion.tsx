@@ -13,20 +13,107 @@ type Plato = {
   Similitud?: number;
 };
 
-// Datos ampliados con ingredientes
+// Datos ampliados con ingredientes y categorías
 const data: Plato[] = [
-  { Nombre: "Margarita", Precio: 8, Calorias: 250, Categoria: "Pizza", Ingredientes: "Queso mozzarella, tomate cherry, albahaca" },
-  { Nombre: "Napolitana", Precio: 10, Calorias: 280, Categoria: "Pizza", Ingredientes: "Queso mozzarella, tomate, anchoas" },
-  { Nombre: "Vegetariana", Precio: 12, Calorias: 240, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla, aceitunas" },
-  { Nombre: "Pepperoni", Precio: 9, Calorias: 300, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pepperoni" },
-  { Nombre: "Hawaiana", Precio: 11, Calorias: 320, Categoria: "Pizza", Ingredientes: "Queso mozzarella, jamón, piña" },
-  { Nombre: "Veggie Lovers", Precio: 12, Calorias: 260, Categoria: "Pizza", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla" },
-  { Nombre: "Tradicional", Precio: 5, Calorias: 300, Categoria: "Sánduche", Ingredientes: "Jamón, queso, tomate, lechuga" },
-  { Nombre: "Carne mechada", Precio: 5, Calorias: 350, Categoria: "Sánduche", Ingredientes: "Carne desmenuzada, queso, cebolla caramelizada" },
-  { Nombre: "Veggie", Precio: 5, Calorias: 220, Categoria: "Sánduche", Ingredientes: "Queso, tomate, lechuga, pepino, palta" },
-  { Nombre: "Nachos cheddar", Precio: 5, Calorias: 400, Categoria: "Picada", Ingredientes: "Nachos, queso cheddar, jalapeños" },
-  { Nombre: "Limonada", Precio: 1.5, Calorias: 80, Categoria: "Bebida", Ingredientes: "Limón, agua, azúcar" },
-  { Nombre: "Cerveza artesanal", Precio: 3, Calorias: 150, Categoria: "Bebida", Ingredientes: "Cebada, lúpulo, levadura" }
+  // Pizzas
+  { Nombre: "Margarita", Precio: 8, Calorias: 250, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, tomate cherry, albahaca" },
+  { Nombre: "Napolitana", Precio: 10, Calorias: 280, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, tomate, anchoas" },
+  { Nombre: "Vegetariana", Precio: 12, Calorias: 240, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla, aceitunas" },
+  { Nombre: "Pepperoni", Precio: 9, Calorias: 300, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, pepperoni" },
+  { Nombre: "Hawaiana", Precio: 11, Calorias: 320, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, jamón, piña" },
+  { Nombre: "Veggie Lovers", Precio: 12, Calorias: 260, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, pimientos, champiñones, cebolla" },
+  { Nombre: "Mi Champ", Precio: 8, Calorias: 270, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, champiñones" },
+  { Nombre: "Cheddar", Precio: 10, Calorias: 330, Categoria: "Pizzas", Ingredientes: "Queso cheddar, queso mozzarella" },
+  { Nombre: "Diavola", Precio: 10, Calorias: 310, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, salami picante, aceite de chile" },
+  { Nombre: "Meat Lovers", Precio: 10, Calorias: 350, Categoria: "Pizzas", Ingredientes: "Queso mozzarella, pepperoni, jamón, carne molida, tocino" },
+  { Nombre: "Say Cheese", Precio: 12, Calorias: 360, Categoria: "Pizzas", Ingredientes: "Mezcla de quesos: mozzarella, cheddar, parmesano, gorgonzola" },
+  { Nombre: "Verace", Precio: 12, Calorias: 290, Categoria: "Pizzas", Ingredientes: "Queso mozzarella de búfala, tomate cherry, albahaca, aceite de oliva extra virgen" },
+  
+  // Sánduches
+  { Nombre: "Tradicional", Precio: 5, Calorias: 300, Categoria: "Sanduches", Ingredientes: "Jamón, queso, tomate, lechuga" },
+  { Nombre: "Carne Mechada", Precio: 5, Calorias: 350, Categoria: "Sanduches", Ingredientes: "Carne desmenuzada, queso, cebolla caramelizada" },
+  { Nombre: "Veggie", Precio: 5, Calorias: 220, Categoria: "Sanduches", Ingredientes: "Queso, tomate, lechuga, pepino, palta" },
+  
+  // Picadas
+  { Nombre: "Nachos Cheddar", Precio: 5, Calorias: 400, Categoria: "Picadas", Ingredientes: "Nachos, queso cheddar, jalapeños" },
+  { Nombre: "Nachos Verace", Precio: 8, Calorias: 450, Categoria: "Picadas", Ingredientes: "Nachos, queso cheddar, guacamole, pico de gallo, crema agria" },
+  { Nombre: "Bread Sticks", Precio: 5, Calorias: 280, Categoria: "Picadas", Ingredientes: "Masa de pizza, ajo, parmesano" },
+  { Nombre: "Bread Sticks Verace", Precio: 8, Calorias: 310, Categoria: "Picadas", Ingredientes: "Masa de pizza artesanal, ajo asado, parmesano reggiano, salsa marinara" },
+  
+  // Bebidas
+  { Nombre: "Agua sin gas", Precio: 1, Calorias: 0, Categoria: "Bebidas", Ingredientes: "Agua purificada" },
+  { Nombre: "Agua mineral", Precio: 1.5, Calorias: 0, Categoria: "Bebidas", Ingredientes: "Agua mineral con gas natural" },
+  { Nombre: "Limonada", Precio: 3.5, Calorias: 80, Categoria: "Bebidas", Ingredientes: "Limón, agua, azúcar" },
+  { Nombre: "Limonada Rosa", Precio: 3.5, Calorias: 90, Categoria: "Bebidas", Ingredientes: "Limón, agua, azúcar, frutos rojos" },
+  { Nombre: "Té caliente", Precio: 1.5, Calorias: 5, Categoria: "Bebidas", Ingredientes: "Té, agua caliente" },
+  { Nombre: "Coca-Cola", Precio: 1.5, Calorias: 140, Categoria: "Bebidas", Ingredientes: "Refresco carbonatado" },
+  { Nombre: "Fanta", Precio: 1.5, Calorias: 160, Categoria: "Bebidas", Ingredientes: "Refresco carbonatado sabor naranja" },
+  { Nombre: "Fioravanti", Precio: 1.5, Calorias: 150, Categoria: "Bebidas", Ingredientes: "Refresco carbonatado sabor fresa" },
+  { Nombre: "Sprite", Precio: 1.5, Calorias: 140, Categoria: "Bebidas", Ingredientes: "Refresco carbonatado sabor lima limón" },
+  { Nombre: "Café americano", Precio: 1.5, Calorias: 5, Categoria: "Bebidas", Ingredientes: "Café, agua caliente" },
+  { Nombre: "Capuccino", Precio: 2.5, Calorias: 120, Categoria: "Bebidas", Ingredientes: "Café espresso, leche espumada" },
+  { Nombre: "Iced Coffee", Precio: 3.5, Calorias: 90, Categoria: "Bebidas", Ingredientes: "Café, hielo, leche, azúcar" },
+  
+  // Promos
+  { Nombre: "Promo Pilas", Precio: 16, Calorias: 750, Categoria: "Promos", Ingredientes: "Pizza mediana, 2 bebidas, postre" },
+  { Nombre: "Promo Lovers", Precio: 20, Calorias: 1000, Categoria: "Promos", Ingredientes: "Pizza grande, 2 bebidas, postre, pan de ajo" },
+  { Nombre: "Promo King", Precio: 24, Calorias: 1500, Categoria: "Promos", Ingredientes: "Pizza familiar, 4 bebidas, 2 postres, 2 panes de ajo" },
+  { Nombre: "Promo Sanduchera", Precio: 10, Calorias: 650, Categoria: "Promos", Ingredientes: "2 sánduches a elección, 2 bebidas" },
+  { Nombre: "Promo Piqueo", Precio: 18, Calorias: 1200, Categoria: "Promos", Ingredientes: "Nachos cheddar, bread sticks, 4 bebidas" },
+  
+  // Cerveza
+  { Nombre: "Jarro Cerveza", Precio: 4, Calorias: 150, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "Pinta Cerveza", Precio: 6, Calorias: 200, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "Litro Cerveza", Precio: 12, Calorias: 400, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "Growler", Precio: 15, Calorias: 1200, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "Stella Artois", Precio: 5, Calorias: 150, Categoria: "Cerveza", Ingredientes: "Cerveza lager premium" },
+  { Nombre: "Corona", Precio: 5, Calorias: 140, Categoria: "Cerveza", Ingredientes: "Cerveza lager mexicana" },
+  { Nombre: "Pilsener", Precio: 4, Calorias: 150, Categoria: "Cerveza", Ingredientes: "Cerveza lager nacional" },
+  { Nombre: "Club", Precio: 4.5, Calorias: 150, Categoria: "Cerveza", Ingredientes: "Cerveza lager premium nacional" },
+  { Nombre: "Michelada Clásica", Precio: 1.5, Calorias: 180, Categoria: "Cerveza", Ingredientes: "Cerveza, limón, sal, salsa" },
+  { Nombre: "Michelada Maracuyá", Precio: 1.5, Calorias: 190, Categoria: "Cerveza", Ingredientes: "Cerveza, limón, sal, salsa, jugo de maracuyá" },
+  { Nombre: "3 jarros cerveza artesanal", Precio: 10, Calorias: 450, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "3 pintas cualquier estilo", Precio: 15, Calorias: 600, Categoria: "Cerveza", Ingredientes: "Cerveza artesanal" },
+  { Nombre: "3 Stella Artois / Corona", Precio: 20, Calorias: 450, Categoria: "Cerveza", Ingredientes: "Cerveza premium" },
+  { Nombre: "Combo 3 Pilsener", Precio: 10, Calorias: 450, Categoria: "Cerveza", Ingredientes: "Cerveza lager nacional" },
+  { Nombre: "Combo 3 Club", Precio: 12, Calorias: 450, Categoria: "Cerveza", Ingredientes: "Cerveza lager premium nacional" },
+  
+  // Cocteles
+  { Nombre: "Copa de vino tinto", Precio: 5, Calorias: 120, Categoria: "Cocteles", Ingredientes: "Vino tinto" },
+  { Nombre: "Copa de calimotcho", Precio: 6, Calorias: 150, Categoria: "Cocteles", Ingredientes: "Vino tinto, coca-cola" },
+  { Nombre: "Copa de tinto de verano", Precio: 6, Calorias: 130, Categoria: "Cocteles", Ingredientes: "Vino tinto, limón, gaseosa" },
+  { Nombre: "Botella de vino tinto", Precio: 20, Calorias: 600, Categoria: "Cocteles", Ingredientes: "Vino tinto" },
+  { Nombre: "Jarra de calimotcho", Precio: 18, Calorias: 600, Categoria: "Cocteles", Ingredientes: "Vino tinto, coca-cola" },
+  { Nombre: "Jarra de tinto de verano", Precio: 18, Calorias: 520, Categoria: "Cocteles", Ingredientes: "Vino tinto, limón, gaseosa" },
+  { Nombre: "Manaba mule", Precio: 6, Calorias: 180, Categoria: "Cocteles", Ingredientes: "Caña manabita, limón, ginger beer" },
+  { Nombre: "Caipirinha manaba", Precio: 6, Calorias: 200, Categoria: "Cocteles", Ingredientes: "Caña manabita, lima, azúcar" },
+  { Nombre: "Botella de caña manabita", Precio: 25, Calorias: 1400, Categoria: "Cocteles", Ingredientes: "Caña manabita" },
+  { Nombre: "Botella de Antioqueño", Precio: 45, Calorias: 1500, Categoria: "Cocteles", Ingredientes: "Aguardiente antioqueño" },
+  { Nombre: "Paloma", Precio: 8, Calorias: 200, Categoria: "Cocteles", Ingredientes: "Tequila, toronja, lima, soda" },
+  { Nombre: "Margarita clásica", Precio: 6, Calorias: 220, Categoria: "Cocteles", Ingredientes: "Tequila, triple sec, lima" },
+  { Nombre: "Margarita maracuyá", Precio: 6, Calorias: 240, Categoria: "Cocteles", Ingredientes: "Tequila, triple sec, lima, maracuyá" },
+  { Nombre: "Margarita frutos rojos", Precio: 6, Calorias: 230, Categoria: "Cocteles", Ingredientes: "Tequila, triple sec, lima, frutos rojos" },
+  { Nombre: "Botella de tequila", Precio: 45, Calorias: 1650, Categoria: "Cocteles", Ingredientes: "Tequila" },
+  { Nombre: "Cuba libre", Precio: 6, Calorias: 220, Categoria: "Cocteles", Ingredientes: "Ron, coca-cola, lima" },
+  { Nombre: "Mojito", Precio: 6, Calorias: 210, Categoria: "Cocteles", Ingredientes: "Ron, lima, azúcar, hierbabuena, soda" },
+  { Nombre: "Mojito maracuyá", Precio: 7, Calorias: 230, Categoria: "Cocteles", Ingredientes: "Ron, lima, azúcar, hierbabuena, soda, maracuyá" },
+  { Nombre: "Mojito frutos rojos", Precio: 7, Calorias: 220, Categoria: "Cocteles", Ingredientes: "Ron, lima, azúcar, hierbabuena, soda, frutos rojos" },
+  { Nombre: "Botella de Ron Abuelo", Precio: 45, Calorias: 1700, Categoria: "Cocteles", Ingredientes: "Ron añejo" },
+  { Nombre: "Gin Tonic", Precio: 6, Calorias: 180, Categoria: "Cocteles", Ingredientes: "Gin, agua tónica, limón" },
+  { Nombre: "Gin Tonic Maracuyá", Precio: 7, Calorias: 200, Categoria: "Cocteles", Ingredientes: "Gin, agua tónica, maracuyá" },
+  { Nombre: "Gin Tonic Frutos rojos", Precio: 7, Calorias: 200, Categoria: "Cocteles", Ingredientes: "Gin, agua tónica, frutos rojos" },
+  { Nombre: "Moscow Mule", Precio: 8, Calorias: 190, Categoria: "Cocteles", Ingredientes: "Vodka, limón, ginger beer" },
+  { Nombre: "Jager Sour", Precio: 12, Calorias: 230, Categoria: "Cocteles", Ingredientes: "Jagermeister, limón, azúcar, clara de huevo" },
+  { Nombre: "Jagerito", Precio: 12, Calorias: 240, Categoria: "Cocteles", Ingredientes: "Jagermeister, hierbabuena, lima, azúcar, soda" },
+  { Nombre: "Whisky Sour", Precio: 12, Calorias: 220, Categoria: "Cocteles", Ingredientes: "Whisky, limón, azúcar, clara de huevo" },
+  { Nombre: "New York Sour", Precio: 12, Calorias: 240, Categoria: "Cocteles", Ingredientes: "Whisky, limón, azúcar, clara de huevo, vino tinto" },
+  { Nombre: "Whisky on the rocks", Precio: 12, Calorias: 210, Categoria: "Cocteles", Ingredientes: "Whisky, hielo" },
+  
+  // Shots
+  { Nombre: "Shot de tequila", Precio: 3, Calorias: 100, Categoria: "Shots", Ingredientes: "Tequila" },
+  { Nombre: "Shot de aguardiente", Precio: 3, Calorias: 110, Categoria: "Shots", Ingredientes: "Aguardiente" },
+  { Nombre: "Shot de Jager", Precio: 6, Calorias: 110, Categoria: "Shots", Ingredientes: "Jagermeister" },
+  { Nombre: "Jager Bomb", Precio: 10, Calorias: 240, Categoria: "Shots", Ingredientes: "Jagermeister, bebida energética" },
 ];
 
 // Implementación simplificada de TF-IDF
@@ -218,7 +305,7 @@ export default function RecomendacionScreen() {
           <Text style={styles.sectionTitle}>Categoría:</Text>
           
           <View style={styles.categoriesContainer}>
-            {["Pizza", "Sánduche", "Picada", "Bebida", "Cualquiera"].map((cat) => (
+            {["Pizzas", "Sanduches", "Picadas", "Bebidas", "Promos", "Cerveza", "Cocteles", "Shots", "Cualquiera"].map((cat) => (
               <TouchableOpacity
                 key={cat}
                 style={[
@@ -255,7 +342,7 @@ export default function RecomendacionScreen() {
             <Slider
               style={styles.slider}
               minimumValue={1}
-              maximumValue={20}
+              maximumValue={45}
               step={1}
               value={presupuesto}
               onValueChange={setPresupuesto}
@@ -265,7 +352,7 @@ export default function RecomendacionScreen() {
             />
             <View style={styles.sliderLabels}>
               <Text style={styles.sliderLabel}>1</Text>
-              <Text style={styles.sliderLabel}>20</Text>
+              <Text style={styles.sliderLabel}>45</Text>
             </View>
           </View>
         </View>
@@ -322,8 +409,8 @@ export default function RecomendacionScreen() {
                   `Ingredientes: ${item.Ingredientes}\nCategoría: ${item.Categoria}\nPrecio: $${item.Precio}\nCalorías: ${item.Calorias}`
                 )}
               >
-                <Text style={[styles.tableCell, { flex: 2 }]}>{item.Nombre}</Text>
-                <Text style={[styles.tableCell, { flex: 1 }]}>${item.Precio.toFixed(1)}</Text>
+<Text style={[styles.tableCell, { flex: 2 }]}>{item.Nombre}</Text>
+                <Text style={[styles.tableCell, { flex: 1 }]}>${item.Precio}</Text>
                 <Text style={[styles.tableCell, { flex: 1 }]}>{item.Calorias}</Text>
               </TouchableOpacity>
             ))}
@@ -337,193 +424,215 @@ export default function RecomendacionScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    padding: 16,
-    paddingTop: 20, // Added extra padding at the top since we removed the header
+    backgroundColor: '#F7F7F7',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    backgroundColor: '#FFFFFF',
+    paddingBottom: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   backButton: {
-    padding: 4,
-    marginRight: 10,
+    padding: 5,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginLeft: 10,
   },
   subtitle: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 16,
+    marginTop: 10,
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
   section: {
-    marginBottom: 16,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 15,
+    marginVertical: 10,
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 1,
   },
   sectionTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 8,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   categoriesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
   },
   categoryButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#DDD',
-    borderRadius: 4,
+    backgroundColor: '#F7F7F7',
+    borderRadius: 25,
+    paddingVertical: 8,
     paddingHorizontal: 12,
-    paddingVertical: 6,
-    marginRight: 8,
-    marginBottom: 8,
+    marginRight: 10,
+    marginBottom: 10,
   },
   categoryButtonSelected: {
-    borderColor: '#F2A900',
-  },
-  radioButton: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#999',
-    marginRight: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  radioButtonSelected: {
-    borderColor: '#F2A900',
-  },
-  radioButtonInner: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
     backgroundColor: '#F2A900',
   },
   categoryText: {
-    fontSize: 12,
+    fontSize: 14,
+  },
+  radioButton: {
+    height: 16,
+    width: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 5,
+  },
+  radioButtonSelected: {
+    borderColor: '#000',
+  },
+  radioButtonInner: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: '#000',
   },
   presupuestoHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
   },
   presupuestoValueContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#DDD',
-    borderRadius: 4,
+    backgroundColor: '#F7F7F7',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   presupuestoValue: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginRight: 5,
   },
   presupuestoArrow: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderLeftWidth: 1,
-    borderLeftColor: '#DDD',
   },
   sliderContainer: {
-    marginVertical: 8,
+    marginTop: 15,
+    marginBottom: 5,
   },
   slider: {
     width: '100%',
-    height: 20,
+    height: 40,
   },
   sliderLabels: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: -4,
+    paddingHorizontal: 10,
   },
   sliderLabel: {
     fontSize: 12,
-    color: '#888',
+    color: '#666',
   },
   input: {
     borderWidth: 1,
     borderColor: '#DDD',
-    borderRadius: 4,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    borderRadius: 5,
+    padding: 10,
     fontSize: 14,
   },
   hint: {
-    fontSize: 11,
+    fontSize: 12,
     color: '#888',
-    marginTop: 4,
+    marginTop: 5,
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 12,
-    marginVertical: 16,
+    justifyContent: 'space-between',
+    marginHorizontal: 15,
+    marginVertical: 15,
   },
   buttonClear: {
-    backgroundColor: '#EEEEEE',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 4,
+    backgroundColor: '#F7F7F7',
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    flex: 1,
+    marginRight: 10,
+    alignItems: 'center',
   },
   buttonClearText: {
-    color: '#333',
+    color: '#666',
     fontWeight: '500',
   },
   buttonRecommend: {
     backgroundColor: '#F2A900',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 4,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    flex: 2,
+    alignItems: 'center',
   },
   buttonRecommendText: {
-    color: 'white',
-    fontWeight: '500',
+    color: '#FFF',
+    fontWeight: '600',
   },
   resultsContainer: {
-    borderWidth: 1,
-    borderColor: '#DDD',
-    borderRadius: 8,
-    marginTop: 8,
-    marginBottom: 24,
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 15,
+    marginVertical: 10,
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 1,
+    marginBottom: 30,
   },
   resultsTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEE',
-    color: '#F2A900',
+    marginBottom: 15,
+    textAlign: 'center',
   },
   tableHeader: {
     flexDirection: 'row',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#DDD',
+    backgroundColor: '#F7F7F7',
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderRadius: 5,
+    marginBottom: 5,
   },
   tableHeaderCell: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#666',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
   tableRow: {
     flexDirection: 'row',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 5,
   },
   tableBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE',
+    borderBottomColor: '#F0F0F0',
   },
   tableCell: {
-    fontSize: 13,
+    fontSize: 14,
   },
 });

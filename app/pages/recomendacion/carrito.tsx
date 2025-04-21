@@ -83,9 +83,13 @@ export default function CartPage() {
           <Text style={styles.totalAmount}>${totalAmount.toFixed(2)}</Text>
         </View>
         
-        <TouchableOpacity style={styles.checkoutButton}>
+        <TouchableOpacity 
+          style={styles.checkoutButton}
+          onPress={() => router.push('/pages/recomendacion/pickup')}
+        >
           <Text style={styles.checkoutButtonText}>Proceder al pago</Text>
         </TouchableOpacity>
+
         
         <TouchableOpacity 
           style={styles.clearButton}

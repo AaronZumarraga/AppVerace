@@ -163,7 +163,10 @@ const SanducheDetailScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.price}>${(product.price * quantity).toFixed(2)}</Text>
+        <View style={styles.pricePointsContainer}>
+          <Text style={styles.price}>${(product.price * quantity).toFixed(2)}</Text>
+          <Text style={styles.points}>Ganas {product.price * quantity * 100} pts</Text>
+         </View>
 
         <TouchableOpacity style={styles.payNowButton}>
           <Text style={styles.payNowText}>Pagar ahora</Text>
@@ -346,6 +349,17 @@ const styles = StyleSheet.create({
   allergenText: {
     fontSize: 14,
   },
+  pricePointsContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginLeft: 10,
+  },
+  points: {
+    fontSize: 12,
+    color: '#888',
+    fontWeight: '500',
+  },
+  
 });
 
 export default SanducheDetailScreen;
