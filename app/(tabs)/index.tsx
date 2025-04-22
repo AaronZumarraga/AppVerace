@@ -6,6 +6,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 
@@ -43,11 +44,10 @@ export default function Tab({ navigation }: Props) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.push('/pages/recomendacion/combos')}
+            onPress={() => router.push('/pages/recomendacion/cocteles')}
             style={styles.option}
           >
-          <Ionicons name="fast-food-sharp" size={24} color="black" />            
-          <Text style={styles.label}>Combos</Text>
+          <FontAwesome name="glass" size={24} color="black" />          <Text style={styles.label}>Cocteles</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
