@@ -2,7 +2,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 
 // No necesitamos el CartIcon por ahora ya que no existe
-// import { CartIcon } from '../components/ui/CartIcon';
+import { CartIcon } from '../components/ui/CartIcon';
 
 export default function TabLayout() {
   return (
@@ -10,8 +10,8 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: 'blue',
         // Comentamos esto hasta que tengas el CartIcon implementado
-        // headerRight: () => <CartIcon />,
-        // headerRightContainerStyle: { paddingRight: 16 }
+        headerRight: () => <CartIcon />,
+        headerRightContainerStyle: { paddingRight: 16 }
       }}
     >
       <Tabs.Screen
